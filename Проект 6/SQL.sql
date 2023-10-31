@@ -1,41 +1,35 @@
 SELECT COUNT(id)
 FROM company
 WHERE status = 'closed';
-
-
+----------------------------------------------------------------------------------
 SELECT funding_total
 FROM company 
 WHERE country_code = 'USA'
   AND category_code = 'news'
 ORDER BY funding_total DESC;
-
-
+----------------------------------------------------------------------------------
 SELECT SUM(price_amount)
 FROM acquisition
 WHERE term_code = 'cash'
   AND EXTRACT(YEAR FROM CAST(acquired_at AS date)) BETWEEN 2011 AND 2013;
-
-
+----------------------------------------------------------------------------------
 SELECT first_name,
        last_name,
        twitter_username
 FROM people
 WHERE twitter_username LIKE 'Silver%';
-
-
+----------------------------------------------------------------------------------
 SELECT *
 FROM people
 WHERE twitter_username LIKE '%money%'
   AND last_name LIKE 'K%';
-
-
+----------------------------------------------------------------------------------
 SELECT country_code,
        SUM(funding_total)
 FROM company
 GROUP BY country_code
 ORDER BY SUM(funding_total) DESC;
-
-
+----------------------------------------------------------------------------------
 SELECT CAST(funded_at AS date),
        MIN(raised_amount),
        MAX(raised_amount)
@@ -44,8 +38,7 @@ GROUP BY CAST(funded_at AS date)
 HAVING MIN(raised_amount) <> 0
    AND MIN(raised_amount) <> MAX(raised_amount)
 ORDER BY  CAST(funded_at AS date);
-
-
+----------------------------------------------------------------------------------
 SELECT *,
        CASE
            WHEN invested_companies >= 100 THEN 'high_activity'
@@ -53,8 +46,7 @@ SELECT *,
            ELSE 'low_activity'
        END
 FROM fund;       
-
-
+----------------------------------------------------------------------------------
 SELECT 
        CASE
            WHEN invested_companies>=100 THEN 'high_activity'
@@ -65,8 +57,7 @@ SELECT
 FROM fund
 GROUP BY activity       
 ORDER BY ROUND(AVG(investment_rounds));
-
-
+----------------------------------------------------------------------------------
 SELECT country_code,
        MIN(invested_companies),
        MAX(invested_companies),
@@ -77,15 +68,13 @@ GROUP BY country_code
 HAVING MIN(invested_companies) <> 0
 ORDER BY AVG(invested_companies) DESC, country_code
 LIMIT 10;
-
-
+----------------------------------------------------------------------------------
 SELECT p.first_name,
        p.last_name,
        e.instituition
 FROM people AS p 
 LEFT JOIN education AS e ON e.person_id = p.id;
-
-
+----------------------------------------------------------------------------------
 SELECT c.name,
        COUNT(DISTINCT(e.instituition))
 FROM company AS c
@@ -94,16 +83,14 @@ INNER JOIN education AS e ON e.person_id = p.id
 GROUP BY c.name
 ORDER BY COUNT(DISTINCT(e.instituition)) DESC
 LIMIT 5;
-
-
+----------------------------------------------------------------------------------
 SELECT DISTINCT(c.name)
 FROM company AS c
 LEFT JOIN funding_round AS fr ON fr.company_id = c.id
 WHERE c.status = 'closed' 
   AND fr.is_first_round = 1
   AND fr.is_last_round = 1;
-
-
+----------------------------------------------------------------------------------
 WITH 
 i AS (SELECT c.id AS company_id
      FROM company AS c
@@ -115,8 +102,7 @@ i AS (SELECT c.id AS company_id
 SELECT DISTINCT(p.id)
 FROM people AS p
 INNER JOIN i ON i.company_id = p.company_id;
-
-
+----------------------------------------------------------------------------------
 WITH 
 c_id AS (SELECT c.id
          FROM company AS c
@@ -132,8 +118,7 @@ p_id AS (SELECT DISTINCT(p.id) AS customer_id
 SELECT p_id.customer_id,
        e.instituition
 FROM p_id INNER JOIN education AS e ON p_id.customer_id = e.person_id;
-
-
+----------------------------------------------------------------------------------
 WITH 
 c_id AS (SELECT c.id
          FROM company AS c
@@ -150,8 +135,7 @@ SELECT p_id.customer_id,
        COUNT(e.instituition)
 FROM p_id INNER JOIN education AS e ON p_id.customer_id = e.person_id
 GROUP BY p_id.customer_id;
-
-
+----------------------------------------------------------------------------------
 WITH 
 c_id AS (SELECT c.id
          FROM company AS c
@@ -171,8 +155,7 @@ e_c AS (SELECT p_id.customer_id,
 
 SELECT AVG(e_c.COUNT)
 FROM e_c;
-
-
+----------------------------------------------------------------------------------
 WITH 
 p_id AS (SELECT DISTINCT(p.id) AS customer_id
         FROM people AS p
@@ -186,8 +169,7 @@ e_c AS (SELECT p_id.customer_id,
 
 SELECT AVG(e_c.COUNT)
 FROM e_c;
-
-
+----------------------------------------------------------------------------------
 WITH 
 i AS (SELECT f.name AS fund_name,
              c.name AS company_name,
@@ -203,8 +185,7 @@ SELECT i.fund_name AS name_of_fund,
 FROM funding_round AS fr
 RIGHT JOIN i ON fr.id = i.funding_round_id
 WHERE EXTRACT(YEAR FROM CAST(funded_at AS date)) BETWEEN 2012 AND 2013;
-
-
+----------------------------------------------------------------------------------
 WITH 
 f AS (SELECT acquiring_company_id,
              price_amount,
@@ -227,8 +208,7 @@ LEFT JOIN company AS comp ON f.acquired_company_id = comp.id
 INNER JOIN s ON s.id = f.acquired_company_id
 ORDER BY price_amount DESC, acquired_company_name
 LIMIT 10;
-
-
+----------------------------------------------------------------------------------
 SELECT c.name,
        EXTRACT(MONTH FROM CAST(fr.funded_at AS date))
 FROM company AS c
@@ -236,8 +216,7 @@ RIGHT JOIN funding_round AS fr ON fr.company_id = c.id
 WHERE c.category_code = 'social'
   AND EXTRACT(YEAR FROM CAST(fr.funded_at AS date)) BETWEEN 2010 AND 2013
   AND fr.raised_amount <> 0;
-
-
+----------------------------------------------------------------------------------
 WITH 
 i AS (SELECT EXTRACT(MONTH FROM CAST(fr.funded_at AS date)) AS month,
              COUNT(DISTINCT(f.name))
@@ -260,8 +239,7 @@ SELECT i.month,
        j.count AS count_of_acquiring_companies,
        j.sum AS total_price
 FROM i FULL OUTER JOIN j ON i.month = j.month;
-
-
+----------------------------------------------------------------------------------
 WITH 
 t1 AS (SELECT c.country_code,
               AVG(c.funding_total)
