@@ -1,4 +1,4 @@
-# [Проект 6: Базовый SQL](https://github.com/SergeyGalim/Yandex-Projects/blob/main/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%206/SQL.sql)
+# [Проект 6: Исследование данных об инвестиции венчурных фондов в компании-стартапы](https://github.com/SergeyGalim/Yandex-Projects/blob/main/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%206/SQL.sql)
 ## Данные
 ![image](https://github.com/SergeyGalim/Yandex-Projects/assets/148423059/48279b3f-63bf-4751-a1fe-3340c1cef13d)
 - Информация о покупках одних компаний другими
