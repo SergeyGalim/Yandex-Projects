@@ -1,4 +1,4 @@
-# [Проект 12: Дашборд для Дзена](https://public.tableau.com/app/profile/ivan.ivanov1536/viz/YandexProject_16833865076600/DashProject)
+# [Проект 12: Дашборд для Дзена](https://public.tableau.com/app/profile/sergey.galim1536/viz/YandexProject_16833865076600/DashProject)
 ## Данные
 - Тема карточки
 - Тема источника
